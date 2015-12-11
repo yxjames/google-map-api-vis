@@ -2,61 +2,100 @@ var oneTrack = [];
 var index = -1;
 var markers = [];
 var currentMarker = [];
+var start = 0;
+var end = 0;
+var interval = 0;
 var step = Number(document.getElementById("step").value);
 var first_data = {};
 function initMap() {
   $.ajax({
-    url: 'http://0.0.0.0:8000/init',
+    url: 'http://0.0.0.0:8000/row',
     type: "GET",
-    dataType: "json",
-    success: function (data_response) {
-        first_data = data_response;
+    success: function(row_num) {
+      var num = row_num["row"];
+      interval = Math.ceil(num/10);
+      var select = document.getElementById("interval");
+      end = start + interval-1;
+      var i = 1;
+      while (i <= 10) {
+        var thisEnd = end+1+(i-1)*interval;
+        if (thisEnd > num) {
+          thisEnd = num;
+        }
+        var txt = start+1+(i-1)*interval + "~" + thisEnd;
+        $('#interval')
+          .append($('<option>', {"value":txt})
+          .text(txt)); 
+        i+=1;
+      }
+      create();
     },
-    error: function (error) {
-        alert(JSON.stringify(error));
+    error: function(error) {
+      alert(JSON.stringify(error));
     }
   });
-  create();
+  
+  
 }
 
 var map;
 function create() {
-  mapCenter = new google.maps.LatLng(30.31266603, 120.33854487);
-  var options = {
-    center: mapCenter,
-    zoom: 5
-  };
+  //console.log(start);
+  //console.log(end);
+  $.ajax({
+        url: 'http://0.0.0.0:8000/init',
+        type: "GET",
+        dataType: "json",
+        data: {"start":start, "end":end},
+        success: function (data_response) {
+          //console.log(data_response)
+          first_data = data_response;
+          mapCenter = new google.maps.LatLng(30.31266603, 120.33854487);
+          var options = {
+            center: mapCenter,
+            zoom: 5
+          };
 
-  map = new google.maps.Map(document.getElementById('map-canvas'), options);
-  var count = 0;
-  alert("This is a visualization of taxi user data");
-  while (count < Object.keys(first_data).length) {       
-    var instance = first_data[""+count].replace(/\n/g, "").split(';');
-    var id = instance[0];
-    var timestamp = instance[1];
-    var lat = Number(instance[2]);
-    var lng = Number(instance[3]);
-    var location = new google.maps.LatLng(lat, lng);
-    createMarker(id, timestamp, location);
-    count+=1;
-  }
-  $("#panel").hide();
-  $("#back_btn").hide();
-  $("#before_btn").hide();
-  $("#next_btn").hide();
-  $("#step").hide();
-  document.getElementById("next_btn").disabled = false;
-  document.getElementById("before_btn").disabled = true;
-  setMapOnAll(markers, map);
+          map = new google.maps.Map(document.getElementById('map-canvas'), options);
+          var count = start;
+          //alert("This is a visualization of taxi user data");
+          while (count < end) {  
+
+            var instance = first_data[count].replace(/\n+/g, "").split(';');
+            var id = instance[0];
+            var timestamp = instance[1];
+            var lat = Number(instance[2]);
+            var lng = Number(instance[3]);
+            var location = new google.maps.LatLng(lat, lng);
+            createMarker(id, timestamp, location);
+            //console.log(">");
+            count+=1;
+          }
+          $("#panel").hide();
+          $("#back_btn").hide();
+          $("#before_btn").hide();
+          $("#next_btn").hide();
+          $("#step").hide();
+          document.getElementById("next_btn").disabled = false;
+          document.getElementById("before_btn").disabled = true;
+          setMapOnAll(markers, map);
+        },
+        error: function (error) {
+          alert(JSON.stringify(error));
+        }
+      });
+  
 
 }
 
 function createMarker(device_id, timestamp, location) {
+
   var marker = new google.maps.Marker({
     position: location,
     id: device_id,
     curTime: timestamp
   });
+
   markers.push(marker);
   marker.addListener('click', function() {
     $.ajax({
@@ -170,6 +209,18 @@ $("#before_btn").click(function() {
     document.getElementById("before_btn").disabled = true;
   }
 });
+
+
+$("#interval").click(function() {
+  var se = document.getElementById("interval").value.split('~');
+  start = Number(se[0])-1;
+  end = Number(se[1])-1;
+  first_data = {};
+  markers = [];
+
+  create();
+});
+
 
 $("#step").click(function() {
   step = Number(document.getElementById("step").value);

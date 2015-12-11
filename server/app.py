@@ -18,9 +18,17 @@ json_first = json.dumps(firstTimeLatLng)
 def hello():
     return "Yuxuan Hello World!"
 
+@app.route("/row", methods=['GET'])
+def getRowNum():
+	return jsonify({"row":str(row_num)});
+
 @app.route("/init", methods=['GET'])
 def initMap():
-	return json_first;
+	start = request.args.get('start')
+	end = request.args.get('end')
+	print start + "  " + end
+	return jsonify({str(i) : firstTimeLatLng[str(i)] for i in range(int(start), int(end)+1)})
+
 
 @app.route("/marker", methods=['GET'])
 def getOneRow():
