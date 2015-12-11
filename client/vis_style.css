@@ -1,0 +1,66 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+#map-canvas { height: 100%; }
+#back_btn {
+
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+}
+#next_btn {
+
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+}
+
+#before_btn {
+
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+}
+#step {
+
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+}
+
+
+#time {
+    font-size: 80%;
+}
+
+#pos {
+    font-size: 80%;
+}
+
+#panel {
+    position: absolute;
+    top: 40px;
+    width: 600px;
+    height: 120px;
+    left: 37%;
+    
+    z-index: 5;
+    background-color: #fff;
+
+    text-align: center;
+}
+

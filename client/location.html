@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="vis_style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?&callback=initMap">
+    </script>
+    <script type="text/javascript">
+
+    </script>
+  </head>
+  <body>
+
+    <div id="map-canvas"></div>
+    <div id="panel">
+      <p id="time"></p>
+      <p id="pos"></p>
+      <input type="button" value="Go back" id="back_btn">
+      <input type="button" value="Next" id="next_btn">
+      <input type="button" value="Before" id="before_btn">
+      <select id="step">
+        <option selected="selected" value="1">1</option>
+        <option value="5">5</option>
+        <option value="20">20</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <script src="functionality.js"></script>
+
+
+  </body>
+</html>
