@@ -216,8 +216,9 @@ $("#interval").click(function() {
   start = Number(se[0])-1;
   end = Number(se[1])-1;
   first_data = {};
+  index = -1;
   markers = [];
-
+  step = 1;
   create();
 });
 
