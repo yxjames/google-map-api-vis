@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMZkUbburzPwp1offblioNSHtj9VGOig&libraries=places&callback=initMap">
+    </script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="EventDrops-master/dist/eventDrops.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    
+    <script type="text/javascript">
+
+    </script>
+  </head>
+  <body>
+
+    <div id="map-canvas"></div>
+    <div id="panel">
+      <!-- <p id="time"></p>
+      <p id="pos"></p> -->
+      <select id="interval">
+      </select>
+      <input type="button" value="Go back" id="back_btn">
+<!--       <input type="button" value="Next" id="next_btn">
+      <input type="button" value="Before" id="before_btn"> -->
+      <select id="step">
+        <option selected="selected" value="1">1</option>
+        <option value="5">5</option>
+        <option value="20">20</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <div id="ply_panel">
+      <p id="ply_p" align="center"></p>
+    </div>
+    <div id="prv_panel">
+      <p id="prv_p" align="center">
+        <a href="#" id="prev" class="btn" style="width:40%">Prev</a>
+      </p>
+    </div>
+    <div id="next_panel">
+      <p id="next_p" align="center">
+        <a href="#" id="next" class="btn btn-right" style="width:40%">Next</a>
+      </p>
+    </div>
+    <div id="info_panel">
+        Arrival time:
+        <div id="true_date" align="left" style="margin-left: 5%; font-size:1.5em; color:white"></div>
+        <div id="true_time" class="time" align="left" style="margin-left: 5%; font-size:1.5em; color:white"></div>
+        Predict:
+        <div id="pred_date" align="left" style="margin-left: 5%; font-size:1.5em; color:white"></div>
+        <div id="pred_time" class="time" align="left" style="margin-left: 5%; font-size:1.5em; color:white"></div>
+      
+      <p>
+        <div id="latlng" align="left" style="margin-left: 5%; font-size:2em; color:white"></div>
+        <div id="lng" align="left" style="margin-left: 5%; font-size:2em; color:white"></div>
+      </p>
+      <div style="margin-left:5%;font-size:1.5em; color:white">
+        Destination:
+        <div id="trueDistrict" align="left" style="font-size:70%"></div>
+        Predict:
+        <div id="predDistrict" align="left" style="font-size:70%"></div>
+      </div>
+    </div>
+    <div id="time-line"></div>
+    <!-- <div style="text-align: center" id="legend"></div> -->
+    <script src="getRecords.js"></script>
+    <script src="createMarker.js"></script>
+    <script src="move.js"></script>
+    <script src="functionality1.js"></script>
+    
+    <script src="timeline.js"></script>
+    <script src="leftPanel.js"></script>
+    <script src="reverseGeo.js"></script>
+    
+
+  </body>
+</html>
