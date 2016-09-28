@@ -1,0 +1,4 @@
+*.log
+EventDrops-master
+Makefile
+.DS_Store
